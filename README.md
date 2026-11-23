@@ -1,13 +1,14 @@
 # ⚡ OLAP Intelligence Hub: Serverless Analytics with DuckDB & MotherDuck
 
 [![OLAP Analytics CI/CD Pipeline](https://github.com/FabrizioPerezPeralta/olap-intelligence-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/FabrizioPerezPeralta/olap-intelligence-hub/actions)
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
-[![DuckDB Version](https://img.shields.io/badge/DuckDB-1.0+-FFF000.svg)](https://duckdb.org/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://olap-intelligence-app.streamlit.app)
+[![DuckDB Version](https://img.shields.io/badge/DuckDB-1.5.6-FFF000.svg)](https://duckdb.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Solución analítica de **Procesamiento Analítico en Línea (OLAP)** moderna, serverless y de alto rendimiento, desarrollada con **DuckDB**, **MotherDuck (SaaS en la nube)** y **Streamlit**, con integración y despliegue continuo (**CI/CD**) automatizado a través de **GitHub Actions** y publicación en la nube pública (*sin utilizar AWS*).
 
 * **Repositorio GitHub:** [https://github.com/FabrizioPerezPeralta/olap-intelligence-hub.git](https://github.com/FabrizioPerezPeralta/olap-intelligence-hub.git)
+* **Streamlit App en vivo:** [https://olap-intelligence-app.streamlit.app](https://olap-intelligence-app.streamlit.app)
 
 ---
 

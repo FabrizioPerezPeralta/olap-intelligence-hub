@@ -4,6 +4,7 @@ Soporta ejecución híbrida: Local DuckDB / Parquet o Cloud MotherDuck SaaS.
 """
 
 import os
+import datetime
 from pathlib import Path
 from typing import Optional, Tuple, Dict, Any
 import duckdb
@@ -82,15 +83,26 @@ def execute_olap_kpis(con, filters: Dict[str, Any]) -> Dict[str, Any]:
     FROM sales_fact
     WHERE {where_clause}
     """
-    row = con.execute(query).fetchone()
+    cursor = con.cursor()
+    row = cursor.execute(query).fetchone()
+    if not row or row[0] is None:
+        return {
+            "total_orders": 0,
+            "unique_customers": 0,
+            "total_sales": 0.0,
+            "total_profit": 0.0,
+            "aov": 0.0,
+            "profit_margin": 0.0,
+            "avg_discount": 0.0,
+        }
     return {
-        "total_orders": row[0],
-        "unique_customers": row[1],
-        "total_sales": row[2],
-        "total_profit": row[3],
-        "aov": row[4],
-        "profit_margin": row[5],
-        "avg_discount": row[6],
+        "total_orders": row[0] or 0,
+        "unique_customers": row[1] or 0,
+        "total_sales": float(row[2] or 0),
+        "total_profit": float(row[3] or 0),
+        "aov": float(row[4] or 0),
+        "profit_margin": float(row[5] or 0),
+        "avg_discount": float(row[6] or 0),
     }
 
 
@@ -134,7 +146,8 @@ def execute_time_series_olap(con, filters: Dict[str, Any], granularity: str = "y
     FROM aggregated
     ORDER BY time_period;
     """
-    return con.execute(query).df()
+    cursor = con.cursor()
+    return cursor.execute(query).df()
 
 
 def execute_dimensional_breakdown(con, filters: Dict[str, Any], dimension: str) -> pd.DataFrame:
@@ -155,7 +168,8 @@ def execute_dimensional_breakdown(con, filters: Dict[str, Any], dimension: str) 
     GROUP BY 1
     ORDER BY total_sales DESC;
     """
-    return con.execute(query).df()
+    cursor = con.cursor()
+    return cursor.execute(query).df()
 
 
 def execute_pivot_olap(con, filters: Dict[str, Any], row_dim: str, col_dim: str) -> pd.DataFrame:
@@ -173,16 +187,21 @@ def execute_pivot_olap(con, filters: Dict[str, Any], row_dim: str, col_dim: str)
     USING ROUND(SUM(gross_sales), 2)
     GROUP BY {row_dim};
     """
-    return con.execute(query).df()
+    cursor = con.cursor()
+    return cursor.execute(query).df()
 
 
-def get_filter_options(con) -> Dict[str, list]:
+def get_filter_options(con) -> Dict[str, Any]:
     """Obtiene los valores únicos para los selectores de filtro."""
-    regions = [r[0] for r in con.execute("SELECT DISTINCT region FROM sales_fact ORDER BY 1").fetchall()]
-    categories = [r[0] for r in con.execute("SELECT DISTINCT category FROM sales_fact ORDER BY 1").fetchall()]
-    segments = [r[0] for r in con.execute("SELECT DISTINCT customer_segment FROM sales_fact ORDER BY 1").fetchall()]
-    payment_methods = [r[0] for r in con.execute("SELECT DISTINCT payment_method FROM sales_fact ORDER BY 1").fetchall()]
-    min_date, max_date = con.execute("SELECT MIN(order_date), MAX(order_date) FROM sales_fact").fetchone()
+    cursor = con.cursor()
+    regions = [r[0] for r in cursor.execute("SELECT DISTINCT region FROM sales_fact ORDER BY 1").fetchall()]
+    categories = [r[0] for r in cursor.execute("SELECT DISTINCT category FROM sales_fact ORDER BY 1").fetchall()]
+    segments = [r[0] for r in cursor.execute("SELECT DISTINCT customer_segment FROM sales_fact ORDER BY 1").fetchall()]
+    payment_methods = [r[0] for r in cursor.execute("SELECT DISTINCT payment_method FROM sales_fact ORDER BY 1").fetchall()]
+    date_row = cursor.execute("SELECT MIN(order_date), MAX(order_date) FROM sales_fact").fetchone()
+    
+    min_date = date_row[0] if date_row and date_row[0] else datetime.date(2023, 1, 1)
+    max_date = date_row[1] if date_row and date_row[1] else datetime.date(2024, 12, 31)
     
     return {
         "regions": regions,
