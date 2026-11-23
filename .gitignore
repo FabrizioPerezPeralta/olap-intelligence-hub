@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Environment files with secrets
+.env
+
+# Local data & databases
+*.duckdb
+*.duckdb.wal
+data/raw/
+data/*.csv
+data/*.parquet
+!data/sample_ecommerce.parquet
