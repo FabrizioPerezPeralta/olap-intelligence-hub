@@ -31,11 +31,15 @@ jobs:
       run: |
         ruff check . || true
 
-    - name: Generate Analytical Dataset & Init DuckDB
+    - name: Generate Analytical Dataset & Sync with Cloud
+      env:
+        MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
       run: |
         python scripts/generate_sample_data.py
 
     - name: Run OLAP Analytical Tests (Pytest)
+      env:
+        MOTHERDUCK_TOKEN: ${{ secrets.MOTHERDUCK_TOKEN }}
       run: |
         pytest tests/ -v --durations=10
 
