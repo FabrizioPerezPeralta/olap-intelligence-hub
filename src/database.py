@@ -10,6 +10,10 @@ from typing import Optional, Tuple, Dict, Any
 import duckdb
 import pandas as pd
 import streamlit as st
+from dotenv import load_dotenv
+
+# Cargar variables de entorno locales desde .env
+load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 PARQUET_FILE = DATA_DIR / "sample_ecommerce.parquet"
