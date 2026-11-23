@@ -1,11 +1,13 @@
 # ⚡ OLAP Intelligence Hub: Serverless Analytics with DuckDB & MotherDuck
 
-[![OLAP Analytics CI/CD Pipeline](https://github.com/<TU_USUARIO>/<TU_REPO>/actions/workflows/ci.yml/badge.svg)](https://github.com/<TU_USUARIO>/<TU_REPO>/actions)
+[![OLAP Analytics CI/CD Pipeline](https://github.com/FabrizioPerezPeralta/olap-intelligence-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/FabrizioPerezPeralta/olap-intelligence-hub/actions)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
 [![DuckDB Version](https://img.shields.io/badge/DuckDB-1.0+-FFF000.svg)](https://duckdb.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Solución analítica de **Procesamiento Analítico en Línea (OLAP)** moderna, serverless y de alto rendimiento, desarrollada con **DuckDB**, **MotherDuck (SaaS en la nube)** y **Streamlit**, con integración y despliegue continuo (**CI/CD**) automatizado a través de **GitHub Actions** y publicación en la nube pública (*sin utilizar AWS*).
+
+* **Repositorio GitHub:** [https://github.com/FabrizioPerezPeralta/olap-intelligence-hub.git](https://github.com/FabrizioPerezPeralta/olap-intelligence-hub.git)
 
 ---
 
@@ -73,8 +75,8 @@ flowchart LR
 
 ### 1. Clonar el Repositorio
 ```bash
-git clone https://github.com/<TU_USUARIO>/<TU_REPO>.git
-cd <TU_REPO>
+git clone https://github.com/FabrizioPerezPeralta/olap-intelligence-hub.git
+cd olap-intelligence-hub
 ```
 
 ### 2. Crear y Activar Entorno Virtual
@@ -142,17 +144,3 @@ La aplicación detectará automáticamente el token y pasará a modo **Cloud Saa
 ```bash
 pytest tests/ -v
 ```
-
----
-
-## ✍️ Artículos Publicados por el Equipo
-
-Los artículos del proyecto fueron redactados y publicados en plataformas especializadas de tecnología:
-
-| Integrante | Tema Central del Artículo | Plataforma | Enlace |
-| :--- | :--- | :--- | :--- |
-| **Integrante 1** | *Arquitectura OLAP moderna con DuckDB & MotherDuck* | Dev.to / Medium / HashNode | `[Próximamente]` |
-| **Integrante 2** | *Modelado Dimensional y Visualización Interactiva en Streamlit* | Dev.to / Medium / HashNode | `[Próximamente]` |
-| **Integrante 3** | *Automatización de Pipelines Analíticos con CI/CD en GitHub Actions* | Dev.to / Medium / HashNode | `[Próximamente]` |
-
-*(Consulta la guía detallada de publicación en [docs/ARTICLE_GUIDE.md](docs/ARTICLE_GUIDE.md)).*
