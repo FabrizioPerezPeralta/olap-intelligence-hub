@@ -8,13 +8,15 @@ Esta guía define la estructura, los enfoques individuales y los estándares de 
 
 1. **Plataformas Aceptadas:** [Dev.to](https://dev.to/), [Medium](https://medium.com/), o [Hashnode](https://hashnode.com/).
 2. **Extensión sugerida:** 1,000 - 1,800 palabras (aprox. 5 a 8 minutos de lectura).
-3. **Elementos obligatorios en cada artículo:**
+3. **Enlaces Oficiales Obligatorios en cada Artículo:**
+   * **Repositorio Público en GitHub:** [https://github.com/FabrizioPerezPeralta/olap-intelligence-hub.git](https://github.com/FabrizioPerezPeralta/olap-intelligence-hub.git)
+   * **Aplicación en Vivo (Streamlit Cloud):** [https://olap-intelligence-app.streamlit.app](https://olap-intelligence-app.streamlit.app)
+4. **Elementos obligatorios en cada artículo:**
    - Explicación conceptual clara de qué es **OLAP** y por qué se diferencia de **OLTP**.
    - Justificación de la tecnología elegida (**DuckDB / MotherDuck**).
    - Diagrama de arquitectura o flujo de datos.
    - Fragmentos de código comentados (SQL OLAP, Python o CI/CD).
    - Capturas de pantalla del dashboard en funcionamiento.
-   - Enlace al **Repositorio Público de GitHub** y a la **App desplegada en Streamlit Cloud**.
    - Mención explícita de la infraestructura en la nube pública utilizada (sin AWS).
 
 ---
