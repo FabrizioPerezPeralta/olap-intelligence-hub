@@ -28,21 +28,43 @@ En este artículo, presento la arquitectura y desarrollo de **OLAP Intelligence 
 
 La arquitectura combina un motor columnar en memoria/archivo con sincronización en la nube pública de MotherDuck, una interfaz reactiva en Streamlit y un flujo automatizado de CI/CD:
 
-```
-[Raw Data / Parquet (150K+ Records)]
-           │
-           ├──► [DuckDB Engine (Motor Local Vectorizado)]
-           └──► [MotherDuck Cloud (SaaS en Nube Pública)]
-                       │
-                       ▼
-           [Streamlit Analytical Hub (UI/UX Interactivo)]
-           - Roll-up / Drill-down Temporal
-           - Slice & Dice Multidimensional
-           - Matriz Pivot & Heatmap
-           - Consola SQL Ad-Hoc
+{% mermaid %}
+flowchart TD
+    subgraph Data["📂 1. Capa de Datos (Data Layer)"]
+        A[("Apache Parquet (150,000+ Filas)<br/>• Almacenamiento Columnar<br/>• Compresión ZSTD")]
+    end
 
-[GitHub (main push)] ──► [GitHub Actions (CI/CD)] ──► [Streamlit Community Cloud]
-```
+    subgraph Engines["⚡ 2. Motor OLAP Serverless (Hybrid Dual-Mode)"]
+        B["DuckDB Local Engine<br/>• Vectorización SIMD<br/>• Consultas en RAM en < 15ms"]
+        C["MotherDuck Cloud (SaaS)<br/>• Serverless Data Warehouse<br/>• Sincronización en Nube Pública"]
+    end
+
+    subgraph UI["📊 3. Plataforma Analítica (Streamlit Web App)"]
+        D["OLAP Intelligence Hub<br/>(Streamlit + Plotly)"]
+        E["🎯 Operaciones Analíticas Multidimensionales:<br/>• Slice & Dice Dinámico<br/>• Roll-Up / Drill-Down Temporal<br/>• PIVOT Table & Heatmaps<br/>• Consola SQL Ad-Hoc (CUBE / ROLLUP)"]
+    end
+
+    subgraph DevOps["🔄 4. Automatización y DataOps (CI/CD)"]
+        F["GitHub Repo<br/>(Branch main)"]
+        G["GitHub Actions Pipeline<br/>• Linting con Ruff<br/>• Pruebas Pytest<br/>• Sincronización con MotherDuck"]
+        H["Streamlit Cloud<br/>• Despliegue Público Continuo"]
+    end
+
+    A --> B
+    A --> C
+    B --> D
+    C --> D
+    D --> E
+    F --> G
+    G --> H
+    H -. Consulta en Vivo .-> C
+{% endmermaid %}
+
+### Desglose de Capas:
+1. **Capa de Almacenamiento:** Particionamiento columnar en formato Parquet, eliminando el overhead de serialización de formatos tradicionales como CSV o JSON.
+2. **Capa OLAP (Dual-Mode):** Permite trabajar desconectado (DuckDB local) o conectado a la nube pública serverless de MotherDuck con latencias menores a 15 ms.
+3. **Capa de Presentación:** Dashboard ejecutivo en Streamlit con visualizaciones interactivas en Plotly y soporte para consultas analíticas directas.
+4. **Capa de DataOps (CI/CD):** Pipeline en GitHub Actions que valida código, ejecuta tests analíticos y redespliega automáticamente ante cualquier cambio.
 
 ---
 
