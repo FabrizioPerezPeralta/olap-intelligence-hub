@@ -39,17 +39,30 @@ diagram = """graph TD
 
 comp = zlib.compress(diagram.encode('utf-8'), 9)
 enc = base64.urlsafe_b64encode(comp).decode('ascii')
-url = f"https://kroki.io/mermaid/svg/{enc}"
 
-print(f"URL: {url}")
+url_svg = f"https://kroki.io/mermaid/svg/{enc}"
+url_png = f"https://kroki.io/mermaid/png/{enc}"
 
-req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-with urllib.request.urlopen(req) as resp:
+print(f"URL SVG: {url_svg}")
+print(f"URL PNG: {url_png}")
+
+# Descargar SVG
+req_svg = urllib.request.Request(url_svg, headers={"User-Agent": "Mozilla/5.0"})
+with urllib.request.urlopen(req_svg) as resp:
     svg_data = resp.read()
 
-out_file = Path(__file__).resolve().parent.parent / "docs" / "architecture.svg"
-out_file.parent.mkdir(parents=True, exist_ok=True)
-with open(out_file, "wb") as f:
+out_svg = Path(__file__).resolve().parent.parent / "docs" / "architecture.svg"
+out_svg.parent.mkdir(parents=True, exist_ok=True)
+with open(out_svg, "wb") as f:
     f.write(svg_data)
+print(f"[+] SVG guardado: {out_svg} ({len(svg_data)} bytes)")
 
-print(f"[+] SVG guardado exitosamente en: {out_file} ({len(svg_data)} bytes)")
+# Descargar PNG
+req_png = urllib.request.Request(url_png, headers={"User-Agent": "Mozilla/5.0"})
+with urllib.request.urlopen(req_png) as resp:
+    png_data = resp.read()
+
+out_png = Path(__file__).resolve().parent.parent / "docs" / "architecture.png"
+with open(out_png, "wb") as f:
+    f.write(png_data)
+print(f"[+] PNG guardado: {out_png} ({len(png_data)} bytes)")
