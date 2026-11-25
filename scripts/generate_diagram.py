@@ -7,24 +7,24 @@ diagram = """graph TD
     classDef layerBox fill:#ffffff,stroke:#0284c7,stroke-width:2px,color:#0f172a,rx:8px,ry:8px;
     classDef nodeStyle fill:#f8fafc,stroke:#cbd5e1,stroke-width:1.5px,color:#1e293b,rx:6px,ry:6px;
 
-    subgraph Data["1. Capa de Almacenamiento y Datos"]
-        A[("Apache Parquet (150K+ Registros)<br/>Formato Columnar Analitico<br/>Compresion ZSTD")]:::nodeStyle
+    subgraph Data["1. Data Storage Layer"]
+        A[("Apache Parquet (150K+ Records)<br/>Columnar Analytical Format<br/>ZSTD Compression")]:::nodeStyle
     end
 
-    subgraph Engines["2. Motor OLAP Serverless (Modo Hibrido Dual)"]
-        B["DuckDB Local Engine<br/>Ejecucion Vectorizada SIMD<br/>Consultas en RAM en menos de 15ms"]:::nodeStyle
-        C["MotherDuck Cloud (SaaS Publico)<br/>Data Warehouse Serverless<br/>Sincronizacion en la Nube"]:::nodeStyle
+    subgraph Engines["2. Serverless OLAP Engine (Hybrid Dual-Mode)"]
+        B["DuckDB Local Engine<br/>Vectorized SIMD Execution<br/>In-Memory Queries in less than 15ms"]:::nodeStyle
+        C["MotherDuck Cloud (Public SaaS)<br/>Serverless Data Warehouse<br/>Cloud Persistence & Sync"]:::nodeStyle
     end
 
-    subgraph UI["3. Capa de Aplicacion Analitica (Streamlit)"]
-        D["OLAP Intelligence Hub UI<br/>Dashboard Interactivo Web"]:::nodeStyle
-        E["Operaciones OLAP:<br/>Slice and Dice Multidimensional<br/>Roll-Up y Drill-Down Temporal<br/>Matriz PIVOT y Heatmap<br/>Consola SQL Ad-Hoc"]:::nodeStyle
+    subgraph UI["3. Analytical & UI Layer (Streamlit)"]
+        D["OLAP Intelligence Hub UI<br/>Interactive Web Dashboard"]:::nodeStyle
+        E["OLAP Operations:<br/>Multidimensional Slice and Dice<br/>Temporal Roll-Up & Drill-Down<br/>PIVOT Matrix and Heatmap<br/>Ad-Hoc SQL Console"]:::nodeStyle
     end
 
-    subgraph DevOps["4. Automatizacion y DataOps (CI/CD)"]
-        F["Repositorio GitHub<br/>Rama main"]:::nodeStyle
-        G["GitHub Actions Pipeline<br/>Calidad de Codigo y Pruebas Pytest<br/>Sincronizacion con MotherDuck"]:::nodeStyle
-        H["Streamlit Community Cloud<br/>Despliegue Publico Continuo"]:::nodeStyle
+    subgraph DevOps["4. Automation & DataOps (CI/CD)"]
+        F["GitHub Repository<br/>main branch"]:::nodeStyle
+        G["GitHub Actions Pipeline<br/>Ruff Linting & Pytest Suites<br/>MotherDuck Cloud Sync"]:::nodeStyle
+        H["Streamlit Community Cloud<br/>Continuous Public Deployment"]:::nodeStyle
     end
 
     A --> B
@@ -34,7 +34,7 @@ diagram = """graph TD
     D --> E
     F --> G
     G --> H
-    H -. Consulta en Vivo .-> C
+    H -. Live Query .-> C
 """
 
 comp = zlib.compress(diagram.encode('utf-8'), 9)
